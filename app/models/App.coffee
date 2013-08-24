@@ -15,19 +15,38 @@ class window.App extends Backbone.Model
     if arg is (@get 'dealerHand')
       alert('The Dealer went bust -- You Win!')   
     # #reset player hand, reset dealer hand, alert player
-    # this.get('playerHand').on('bust', this.bust);
 
-    #bust should reset state of app, another method should act on the change.
+    #TODO - bust should reset state of app, another method should act on the change.
 
+  evaluate: ->
+    dealerScore = (@get 'dealerHand').scores()[0]
+    playerScore = (@get 'playerHand').scores()[0]
+    if dealerScore > 21
+      alert('Dealer is Bust -- You win!')
+    else if dealerScore >= playerScore
+      alert('Dealer Wins!')
 
+  newHand: ->
+    console.log("newHand Fired")
+    @set 'playerHand', (@get 'deck').dealPlayer()
+    @set 'dealerHand', (@get 'deck').dealDealer()
+
+    
   dealerTurn: ->
     dealerHand = (@get 'dealerHand')
+    unrevealed = dealerHand.models[0].get('value')
+    while dealerHand.scores()[0] + unrevealed < 17
+      dealerHand.hit()
+    dealerHand.models[0].flip()
+    @evaluate()
+
+
+
     
     
+    #TODO - make stand button disable after first click.
+
     # if dealerHand.scores > 21
     #   alert('Dealer Bust!')
     # if dealerHand.scores >= 17
-
-      #dealerTurn keeps hitting until reaches 17 or bust
-
 
