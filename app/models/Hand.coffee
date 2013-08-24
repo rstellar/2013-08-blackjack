@@ -9,11 +9,7 @@ class window.Hand extends Backbone.Collection
     @add(@deck.pop()).last()
     @trigger('hit', @)
     @trigger('bust', @) if _.min(@scores()) >21
-
-
-
-  stand: -> @add(@dealerHand())
-    #stand should call to the dealerHand
+    
 
   scores: ->
     # The scores are an array of potential scores.
