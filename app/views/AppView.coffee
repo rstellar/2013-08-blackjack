@@ -11,9 +11,8 @@ class window.AppView extends Backbone.View
   events:
     "click .hit-button": -> 
       @model.get('playerHand').hit()
-      setTimeout @model.get('dealerHand').hit, 1000
-    "click .stand-button": -> @model.get('dealerHand').hit()
-    "click .reset-button": -> alert "Reset is not setup yet"  
+    "click .stand-button": -> @model.dealerTurn()
+    "click .reset-button": -> alert "Refresh the screen"  
     # stand ()currently undefined
     # probably add to Hand.coffee
 
