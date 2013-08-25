@@ -9,6 +9,7 @@ class window.Hand extends Backbone.Collection
     @add(@deck.pop()).last()
     @trigger('hit', @)
     @trigger('bust', @) if _.min(@scores()) >21
+    @trigger('blackjack', @) if _.any(@scores(), (score)-> true if score is 21)
     
 
   scores: ->
